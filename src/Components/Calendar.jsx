@@ -35,7 +35,7 @@ class Calendar extends React.Component {
     componentDidMount() {
         ajax({
             type: "GET",
-            url: `http://localhost:3002/dates/${this.state.id}`,
+            url: `http://3.135.103.1/dates/${this.state.id}`,
             success: (data) => {
                 let allReservations = [];
                 data.forEach(e => {
@@ -142,14 +142,15 @@ class Calendar extends React.Component {
     renderNotEmpty() {
         let days = [];
         var filtered = this.setNewReservations(this.state.reservedArray);
-
+        let chosenMonth = this.state.date.format('L').split('/').join('-');
+        
         for (let d = 1; d <= this.daysInMonth(); d++) {
             if (d < 10) {
                 d = '0' + d.toString();
-                var className = (filtered.includes(d) ?
+                var className = (filtered.includes(d) || (moment() > moment(chosenMonth)) ?
                     "reserved" : "day");
             } else {
-                var className = (filtered.includes(d.toString()) ?
+                var className = (filtered.includes(d.toString()) || (moment() > moment(chosenMonth)) ?
                     "reserved" : "day");
             }
             days.push(

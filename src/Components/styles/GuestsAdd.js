@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
     margin-left: 0px;
     width: 20%;
     background-color: white;
+    z-index: 1000;
 `;
 
 export const Container = styled.div`
@@ -48,4 +49,14 @@ export const Button = styled.button`
   width: 30px;
   border-radius: 50%;
   border: 1px solid #717171;
+`;
+
+export const CloseButton = styled.button`
+font-family: Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
+border: none;
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+color: #008489;
 `;

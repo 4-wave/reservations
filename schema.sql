@@ -1,3 +1,4 @@
+
 Create database if not exists reservations;
 use reservations;
 

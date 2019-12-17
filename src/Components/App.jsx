@@ -37,6 +37,7 @@ class App extends React.Component {
         this.changeCountInfants = this.changeCountInfants.bind(this);
         this.getClickedYearAndMonth = this.getClickedYearAndMonth.bind(this);
         this.convertertDate = this.convertertDate.bind(this);
+        this.closeGuestsAndGetCount = this.closeGuestsAndGetCount.bind(this);
     }
 
     componentDidMount() {
@@ -77,11 +78,11 @@ class App extends React.Component {
         const endpoint = window.location.pathname;
         let url = '';
         if (endpoint.length === 1) {
-            url = 'http://localhost:3002/houses/1';
+            url = 'http://3.135.103.1/houses/1';
         } else {
             const arr = endpoint.split('/');
             const id = arr[arr.length - 2];
-            url = `http://localhost:3002/houses/${id}`;
+            url = `http://3.135.103.1/houses/${id}`;
         }
         let arrayUrl = url.split('/');
         var id = Number(arrayUrl[arrayUrl.length - 1])
@@ -120,6 +121,10 @@ class App extends React.Component {
         return `${day}/${month}/${year}`
     }
 
+    closeGuestsAndGetCount(adults, children, infants) {
+        this.setState({guestsClicked: false, adults:adults, children:children, infants:infants})
+    }
+
     render() {
         const { pricePerNight, average_rating, number_of_reviews, dayStart, dayEnd, year, month, isClicked,
             id, adults, children, infants, guestsClicked, cleaningFees, serviceFees } = this.state
@@ -140,9 +145,9 @@ class App extends React.Component {
                     infants={infants}
                     changeVisibility={this.changeGuestsVisible} />
                 {guestsClicked ?
-                    <GuestsAdd countAdults={this.changeCountAdults}
+                    <GuestsAdd close={this.closeGuestsAndGetCount} countAdults={this.changeCountAdults}
                         countChildren={this.changeCountChildren}
-                        countInfants={this.changeCountInfants} /> : <div></div>}
+                        countInfants={this.changeCountInfants} adults={adults} children={children} infants={infants}/> : <div></div>}
                 {dayEnd !== 0 ?
                     <TotalPrice pricePerNight={pricePerNight}
                         cleaningFees={cleaningFees}

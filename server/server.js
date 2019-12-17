@@ -4,11 +4,12 @@ const app = express();
 const port = 3002;
 const bodyParser = require('body-parser');
 const path = require('path');
-const controllers = require('./controllers.js');
 
 const request = require('supertest');
 
 const cors = require('cors');
+var compression = require('compression')
+const controllers = require('./controllers.js');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,6 +18,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cors());
+
+function shouldCompress(req, res) {
+  if (req.headers['x-no-compression']) {
+    // don't compress responses with this request header
+    return false;
+  }
+  // fallback to standard filter function
+  return compression.filter(req, res);
+}
+
+app.use(compression({ filter: shouldCompress }));
 
 app.use('/', express.static(path.join(__dirname, '../dist')));
 app.use('/:id', express.static(path.join(__dirname, '../dist')));

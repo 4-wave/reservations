@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
     margin-right: 100px;
     background-color: white;
     border: 1px solid #e4e4e4;
+    z-index: 2;
 `;
 
 export const CalendarTable = styled.table`

@@ -1,0 +1,26 @@
+
+version: '3'
+
+services:
+  airbnb-reservation:
+    build: ./
+    ports: 
+      - "3002:3002"
+    depends_on:
+      - database
+    command: bash -c "./wait-for-it.sh database:3306 && npm run seed:db && npm run server"
+      
+  database:
+    image: mysql:5.7.28
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'reservations'
+      MYSQL_ROOT_PASSWORD: 'Password'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'user'
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    
+      
