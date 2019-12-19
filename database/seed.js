@@ -11,7 +11,6 @@ function houses() {
     const reviews = faker.finance.amount(0, 5, 2);
     const rewievers = faker.random.number(500);
 
-
     final.push(Models.houses({
       price_per_night: randomPrice,
       cleaning_fees: cleaningPrice,

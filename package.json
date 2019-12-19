@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "webpack": "webpack --mode=production",
+    "webpack": "webpack -d --watch",
     "start": "nodemon ./server/server.js",
     "seed:db": "node database/seed.js",
     "server": "node server/server.js"

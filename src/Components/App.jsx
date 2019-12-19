@@ -78,11 +78,11 @@ class App extends React.Component {
         const endpoint = window.location.pathname;
         let url = '';
         if (endpoint.length === 1) {
-            url = 'http://3.135.103.1/houses/1';
+            url = '/houses/1';
         } else {
             const arr = endpoint.split('/');
             const id = arr[arr.length - 2];
-            url = `http://3.135.103.1/houses/${id}`;
+            url = `/houses/${id}`;
         }
         let arrayUrl = url.split('/');
         var id = Number(arrayUrl[arrayUrl.length - 1])
