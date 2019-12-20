@@ -1,20 +1,40 @@
+DROP DATABASE IF EXISTS reservations;
 
-Create database if not exists reservations;
-use reservations;
+CREATE DATABASE reservations;
+\c reservations
 
-create table if not exists reservation(
-    id int AUTO_INCREMENT PRIMARY KEY,
-    price_per_night int(25),
-    cleaning_fees int(25),
-    service_fees int(25),
-    average_rating float(2),
-    number_of_reviews int(25)
+CREATE TABLE home(
+    id SERIAL PRIMARY KEY,
+    host_first_name VARCHAR (50) NOT NULL,
+    host_last_name VARCHAR (50) NOT NULL,
+    host_email VARCHAR (200) UNIQUE NOT NULL,
+    cleaning_fee INT NOT NULL,
+    service_fee INT NOT NULL,
+    rating DECIMAL NOT NULL,
+    reviews INT NOT NULL,
+    max_guests INT NOT NULL,
+    base_price INT NOT NULL,
+    guest_increment INT NOT NULL,
+    day_increment INT NOT NULL
 );
 
-create table if not exists details(
-    id int AUTO_INCREMENT PRIMARY KEY,
-    room_id int(35),
-    reservation_start date,
-    reservation_end date,  
-    foreign key (room_id) references reservation(id)
+CREATE TABLE users(
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR (50),
+    last_name VARCHAR (50),
+    email VARCHAR (200)
+);
+
+CREATE TABLE reservation(
+    id SERIAL PRIMARY KEY,
+    start_date DATE UNIQUE NOT NULL,
+    end_date DATE UNIQUE NOT NULL,
+    adults INT,
+    children INT,
+    infants INT,
+    cost INT,
+    home_id INT,
+    user_id INT,
+    FOREIGN KEY (home_id) REFERENCES home(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );

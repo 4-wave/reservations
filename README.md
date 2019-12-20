@@ -6,18 +6,15 @@ Instaling Dependencies
 - `npm install` from within root directory
 
 ## Endpoints
-Get availability/prices/general info for specific home
-`GET api/reservations/:id`
+Create 
+`POST api/reservations/:id` Post reservation dates and guest information for specific home
 
-**House Response Object** 
---
+Read
+`GET api/reservations/:id` Get availability/prices/general info for specific home
 
-Create reservation
-`POST api/reservations/:id`
+Update
+`UPDATE api/reservations/:id` Update reservation dates or guest information for specific home
 
-Update reservation
-`UPDATE api/reservations/:id`
-
-Delete reservation
-`DELETE api/reservations/:id`
+Delete
+`DELETE api/reservations/:id` Delete reservation dates/information for specific home
 
