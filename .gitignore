@@ -2,3 +2,4 @@
 .eslintrc.js
 config.js
 /coverage/
+/database/homes.csv

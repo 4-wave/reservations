@@ -3,7 +3,7 @@ DROP DATABASE IF EXISTS reservations;
 CREATE DATABASE reservations;
 \c reservations
 
-CREATE TABLE home(
+CREATE TABLE homes(
     id SERIAL PRIMARY KEY,
     host_first_name VARCHAR (50) NOT NULL,
     host_last_name VARCHAR (50) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE users(
     email VARCHAR (200)
 );
 
-CREATE TABLE reservation(
+CREATE TABLE reservations(
     id SERIAL PRIMARY KEY,
     start_date DATE UNIQUE NOT NULL,
     end_date DATE UNIQUE NOT NULL,
@@ -33,8 +33,8 @@ CREATE TABLE reservation(
     children INT,
     infants INT,
     cost INT,
-    home_id INT,
-    user_id INT,
-    FOREIGN KEY (home_id) REFERENCES home(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    homes_id INT,
+    users_id INT,
+    FOREIGN KEY (homes_id) REFERENCES homes(id),
+    FOREIGN KEY (users_id) REFERENCES users(id)
 );

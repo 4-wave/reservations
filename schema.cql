@@ -1,7 +1,7 @@
-DROP KEYSPACE [IF EXISTS] reservations
+DROP KEYSPACE IF EXISTS reservations
 
 CREATE KEYSPACE reservations
-WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3};
+WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2};
 
 CREATE TABLE reservations.home(
   id int PRIMARY KEY,
@@ -29,10 +29,10 @@ CREATE TABLE reservations.reservation(
   user_email text,
   PRIMARY KEY (home_id, start)
 WITH CLUSTERING ORDER BY (start ASC)
-)
+);
 
 CREATE TABLE reservations.user(
   first_name text,
   last_name text,
   email text PRIMARY KEY
-)
+);
