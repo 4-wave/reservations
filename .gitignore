@@ -2,3 +2,6 @@
 .eslintrc.js
 config.js
 /coverage/
+/database/homes/
+/database/users/
+/database/reservations/
