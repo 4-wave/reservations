@@ -1,13 +1,13 @@
 DROP DATABASE IF EXISTS reservations;
 
 CREATE DATABASE reservations;
-\c reservations
+\c reservations;
 
 CREATE TABLE homes(
     id SERIAL PRIMARY KEY,
     host_first_name VARCHAR (50) NOT NULL,
     host_last_name VARCHAR (50) NOT NULL,
-    host_email VARCHAR (200) UNIQUE NOT NULL,
+    host_email VARCHAR (200) NOT NULL,
     cleaning_fee INT NOT NULL,
     service_fee INT NOT NULL,
     rating DECIMAL NOT NULL,
@@ -27,8 +27,8 @@ CREATE TABLE users(
 
 CREATE TABLE reservations(
     id SERIAL PRIMARY KEY,
-    start_date DATE UNIQUE NOT NULL,
-    end_date DATE UNIQUE NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
     adults INT,
     children INT,
     infants INT,
