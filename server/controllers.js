@@ -1,24 +1,56 @@
-const models = require('./models.js');
+const models = require('../database/modelsPostgres.js');
 
 module.exports = {
-  getHouse: (req, res) => {
-    const array = req.path.split('/');
-    models.getPrice((err, data) => {
+  getHome: (req, res) => {
+    models.getHome(req.params.id, (err, data) => {
       if (err) {
-        res.status(400).send();
+        console.log(`error getting home info to server: ${err}`)
+        res.sendStatus(400);
       } else {
+        console.log(`successful get for home info to server`)
         res.status(200).send(data);
       }
-    }, array[array.length - 1]);
+    })
   },
-  getDates: (req, res) => {
-    const array = req.path.split('/');
-    models.getDates((err, data) => {
+  getReservations: (req, res) => {
+    models.getReservations(req.params.id, (err, data) => {
       if (err) {
-        res.status(400).send();
+        console.log(`error getting reservations to server: ${err}`)
+        res.sendStatus(400);
       } else {
+        console.log(`successful get for reservations to server`)
         res.status(200).send(data);
       }
-    }, array[array.length - 1]);
+    })
   },
+  postReservation: (req, res) => {
+    models.postReservation(req.body, (err) => {
+      if (err) {
+        console.log(`error posting reservation: ${err}`);
+      } else {
+        console.log(`successful post`);
+        res.sendStatus(200);
+      }
+    })
+  },
+  updateReservation: (req, res) => {
+    models.updateReservation(req.body, (err) => {
+      if (err) {
+        console.log(`error updating reservation: ${err}`)
+      } else {
+        console.log(`successful update`);
+        res.sendStatus(200);
+      }
+    })
+  },
+  deleteReservation: (req, res) => {
+    models.deleteReservation(req.body, (err) => {
+      if (err) {
+        console.log(`error deleting reservation: ${err}`)
+      } else {
+        console.log(`sucessful delete`);
+        res.sendStatus(200)
+      }
+    })
+  }
 };

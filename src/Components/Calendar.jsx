@@ -35,11 +35,12 @@ class Calendar extends React.Component {
     componentDidMount() {
         ajax({
             type: "GET",
-            url: `/dates/${this.state.id}`,
+            url: `/api/reservations/${this.state.id}`,
             success: (data) => {
+                console.log('successful reservations get', data)
                 let allReservations = [];
                 data.forEach(e => {
-                    let test = this.getDates(e.reservation_start, e.reservation_end);
+                    let test = this.getDates(e.start_date, e.end_date);
                     allReservations = allReservations.concat(test);
                 })
                 this.setState({ reservedArray: allReservations });
@@ -66,7 +67,6 @@ class Calendar extends React.Component {
         var dateArray = [];
         var currentDate = moment(startDate);
         var stopDate = moment(stopDate);
-        console.log(currentDate)
         while (currentDate <= stopDate) {
             dateArray.push(moment(currentDate).format('YYYY-MM-DD'))
             currentDate = moment(currentDate).add(1, 'days');

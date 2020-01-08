@@ -10,6 +10,7 @@
     "seed:db": "psql -U postgres -f schema.sql && node --max_old_space_size=6000 database/seedPostgres.js",
     "seed:c": "node database/seedCassandra.js",
     "query:post": "node database/modelsPostgres.js",
+    "query:cass": "node database/modelsCassandra.js",
     "server": "node server/server.js"
   },
   "jest": {
@@ -56,6 +57,7 @@
     "moment-timezone": "^0.5.27",
     "mysql": "^2.17.1",
     "mysql2": "^2.0.1",
+    "newrelic": "^6.2.0",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.1",
     "pg": "^7.15.1",

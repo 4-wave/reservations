@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 
 const app = express();
@@ -10,6 +11,7 @@ const request = require('supertest');
 const cors = require('cors');
 var compression = require('compression')
 const controllers = require('./controllers.js');
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,17 +35,21 @@ app.use(compression({ filter: shouldCompress }));
 app.use('/', express.static(path.join(__dirname, '../dist')));
 app.use('/:id', express.static(path.join(__dirname, '../dist')));
 
-app.get('/houses/:id', (req, res) => {
-  controllers.getHouse(req, res);
+app.get('/api/homes/:id', (req, res) => {
+  controllers.getHome(req, res);
 });
 
-app.get('/dates/:id', (req, res) => {
-  controllers.getDates(req, res);
+app.get('/api/reservations/:id', (req, res) => {
+  controllers.getReservations(req, res);
+});
+
+app.post('/api/reservations/:id', (req, res) => {
+  controllers.postReservation(req, res);
 });
 
 // Test to check server responses using request supertest
 request(app)
-  .get('/houses/1')
+  .get('/api/homes/1')
   .expect('Content-Type', /json/)
   .expect(200)
   .end((err) => {
