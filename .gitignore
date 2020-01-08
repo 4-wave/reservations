@@ -5,3 +5,6 @@ config.js
 /database/homes/
 /database/users/
 /database/reservations/
+newrelic.js
+newrelic_agent.log
+reservations.dump

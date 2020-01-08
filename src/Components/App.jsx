@@ -78,11 +78,11 @@ class App extends React.Component {
         const endpoint = window.location.pathname;
         let url = '';
         if (endpoint.length === 1) {
-            url = '/houses/1';
+            url = '/api/homes/1';
         } else {
             const arr = endpoint.split('/');
             const id = arr[arr.length - 2];
-            url = `/houses/${id}`;
+            url = `/api/homes/${id}`;
         }
         let arrayUrl = url.split('/');
         var id = Number(arrayUrl[arrayUrl.length - 1])
@@ -90,19 +90,20 @@ class App extends React.Component {
             type: "GET",
             url: url,
             success: (data) => {
+                console.log('successful home get', data)
                 this.setState({
-                    pricePerNight: data[0].price_per_night,
-                    cleaningFees: data[0].cleaning_fees,
-                    serviceFees: data[0].service_fees,
-                    average_rating: data[0].average_rating,
-                    number_of_reviews: data[0].number_of_reviews,
+                    pricePerNight: data[0].base_price,
+                    cleaningFees: data[0].cleaning_fee,
+                    serviceFees: data[0].service_fee,
+                    average_rating: data[0].rating,
+                    number_of_reviews: data[0].reviews,
                     id: id,
                 })
             },
             error: (message) => {
                 console.log(message);
             }
-        })
+        }) 
     }
 
     changeToVisible() {

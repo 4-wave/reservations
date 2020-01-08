@@ -5,17 +5,17 @@ client.connect();
 const start = new Date();
 
 const getHome = (id) => {
-  client.execute(`SELECT * FROM homes where homes.id=${id};`, (err, data) => {
+  client.execute(`SELECT * FROM reservations.home WHERE id=${id};`, (err, data) => {
     if (err) {
       console.log(`error getting home info from DB: ${err}`)
     } else {
       const getHomeEnd = new Date();
       console.log(`successful get home info from DB: ${getHomeEnd - start} ms`);
-      console.log(`sample result for getHome: ${data}`);
+      console.log(`sample result for getHome: ${JSON.stringify(data.rows)}`);
       let result = {
         home: data.rows
       }
-      client.execute(`SELECT * FROM reservations where reservations.homes_id=${id};` , (err, data) => {
+      client.execute(`SELECT * FROM reservations.reservation WHERE home_id=${id};` , (err, data) => {
         if (err) {
           console.log(`error getting reservations for home id #${id}: ${err}`);
         } else {
@@ -30,12 +30,12 @@ const getHome = (id) => {
   })
 }
 
-getHome(200);
+// getHome(200);
 
 // add reservation
 const postReservation = (data) => {
-  const { startDate, endDate, adults, children, infants, cost, homesId, usersId } = data;
-  client.execute(`INSERT INTO reservations(start_date,end_date,adults,children,infants,cost,homes_id,users_id) VALUES ('${startDate}','${endDate}',${adults},${children},${infants},${cost},${homesId},${usersId});`, (err) => {
+  const { start, end, adults, children, infants, cost, homeId, userId } = data;
+  client.execute(`INSERT INTO reservations.reservation(home_id,start,end,adults,children,infants,cost,user_id) VALUES (${homeId},'${start}','${end}',${adults},${children},${infants},${cost},${userId});`, (err) => {
     if (err) {
       console.log(`error posting from DB: ${err}`);
     } else {
@@ -44,50 +44,51 @@ const postReservation = (data) => {
     }
   })
 };
-
+// INSERT INTO reservations.reservation(home_id,start,end,adults,children,infants,cost,user_id) VALUES (200,'2020-09-24','2020-09-27',2,0,0,222,122);
 const samplePost = {
-  startDate: '2020-09-24T00:15:17-07:00',
-  endDate: '2020-09-27T01:47:41-07:00',
+  start: '2020-09-24',
+  end: '2020-09-27',
   adults: 2,
   children: 0,
   infants: 0,
   cost: 222,
-  homesId: 200,
-  usersId: 122
+  homeId: 200,
+  userId: 122
 };
 
 // postReservation(samplePost);
 
 // update reservation with reservation_id
-const updateReservation = (data) => {
-  const { id, startDate, endDate, adults, children, infants, cost } = data;
-  client.execute(`UPDATE reservations SET start_date=${startDate},end_date=${endDate},adults=${adults},children=${children},infants=${infants},cost=${cost} WHERE reservations.id=${id}`, (err) => {
-    if (err) {
-      console.log(`error updating to DB: ${err}`)
-    } else {
-      const updateEnd = new Date();
-      console.log(`successful update to DB: ${updateEnd - start} ms`);
-    }
-  })
-};
-
-const sampleUpdate = {
-  id: 100000001,
-  startDate: '2020-09-24T00:15:17-07:00',
-  endDate: '2020-09-27T01:47:41-07:00',
-  adults: 3,
-  children: 0,
-  infants: 0,
-  cost: 237,
-  homesId: 200,
-  usersId: 122
-};
+// const updateReservation = (data) => {
+//   const { id, start, end, adults, children, infants, cost } = data;
+//   client.execute(`UPDATE reservations.reservation SET start=${start},end=${end},adults=${adults},children=${children},infants=${infants},cost=${cost} WHERE home_id=${id}`, (err) => {
+//     if (err) {
+//       console.log(`error updating to DB: ${err}`)
+//     } else {
+//       const updateEnd = new Date();
+//       console.log(`successful update to DB: ${updateEnd - start} ms`);
+//     }
+//   })
+// };
+// UPDATE reservations.reservation SET start='2020-09-28',end='2020-09-30',adults=3,children=0,infants=0,cost=237 WHERE home_id=100000001
+// const sampleUpdate = {
+//   id: 100000001,
+//   start: '2020-09-28',
+//   end: '2020-09-30',
+//   adults: 3,
+//   children: 0,
+//   infants: 0,
+//   cost: 237,
+//   homeId: 200,
+//   userId: 122
+// };
 
 // updateReservation(sampleUpdate);
 
 // delete reservation with given reservation_id
-const deleteReservation = (id) => {
-  client.execute(`DELETE FROM reservations WHERE id=${id}`, (err) => {
+const deleteReservation = (data) => {
+  const { homeId, start } = data;
+  client.execute(`DELETE FROM reservations.reservation WHERE home_id=${id} AND start='${start}`, (err) => {
     if (err) {
       console.log(`error deleting reservation id #${id} from DB: ${err}`)
     } else {
@@ -96,5 +97,5 @@ const deleteReservation = (id) => {
     }
   })
 };
-
+// DELETE FROM reservations.reservation WHERE home_id=200 AND start='2020-09-24';
 // deleteReservation(100000001);

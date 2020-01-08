@@ -10,7 +10,8 @@ Create
 `POST api/reservations/:id` Post reservation dates and guest information for specific home
 
 Read
-`GET api/reservations/:id` Get availability/prices/general info for specific home
+`GET api/homes/:id` Get availability/prices/general info for specific home
+`GET api/reservations/:id` Get reservations for specific home
 
 Update
 `UPDATE api/reservations/:id` Update reservation dates or guest information for specific home

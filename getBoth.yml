@@ -1,0 +1,16 @@
+config:
+  target: 'http://localhost:3002'
+  phases:
+    - duration: 60
+      arrivalRate: 20
+      rampTo: 200
+      name: "Warm up"
+    - duration: 30
+      arrivalRate: 200
+      name: 'Peak load'
+scenarios:
+  - flow:
+    - get:
+        url: "/api/homes/{{$randomNumber(9990000,10000000)}}"
+    - get:
+        url: "/api/reservations/{{$randomNumber(9990000,10000000)}}"
