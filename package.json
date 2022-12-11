@@ -47,7 +47,7 @@
     "cors": "^2.8.5",
     "css-loader": "^3.2.0",
     "csv-write-stream": "^2.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "faker": "^4.1.0",
     "fetch": "^1.1.0",
     "font-awesome": "^4.7.0",
